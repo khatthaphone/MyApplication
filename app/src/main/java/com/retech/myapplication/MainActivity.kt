@@ -6,10 +6,8 @@ import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.*
 
 val username = "admin"
@@ -26,6 +24,8 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var sharedPrefs: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
+
+    lateinit var imageLogo: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +94,12 @@ class MainActivity : AppCompatActivity() {
         etPassword = et_password
         btnLogin = btn_login
         checkbox = cb_remember_username
+        imageLogo = logo
+
+        Glide
+            .with(this)
+            .load("https://i.pinimg.com/564x/40/5b/cc/405bcc5cd54f9b1537f67236dcfd437c.jpg")
+            .into(imageLogo)
 
         val username = sharedPrefs.getString("username", "")
 

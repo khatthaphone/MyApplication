@@ -1,7 +1,8 @@
-package com.retech.myapplication
+package com.retech.myapplication.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.retech.myapplication.R
 
 class HelloActivity : AppCompatActivity() {
 

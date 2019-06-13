@@ -1,13 +1,15 @@
-package com.retech.myapplication
+package com.retech.myapplication.activity
 
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.util.Log
 import android.widget.*
 import com.bumptech.glide.Glide
+import com.retech.myapplication.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 val username = "admin"
@@ -75,15 +77,18 @@ class MainActivity : AppCompatActivity() {
             if (enterUsername == username && enterPassword == password) {
                 Toast.makeText(applicationContext, "Correct Username and Password", Toast.LENGTH_LONG).show()
 
-                val intent = Intent(this, DesignActivity::class.java)
+                val intent = Intent(this, Main2Activity::class.java)
                 intent.putExtra("username", enterUsername)
                 intent.putExtra("password", enterPassword)
 
                 startActivity(intent)
-    //                finish()
+                //                finish()
 
             } else {
-                Toast.makeText(applicationContext, "Incorrect Username and Password", Toast.LENGTH_LONG).show()
+//                Toast.makeText(applicationContext, "Incorrect Username or Password", Toast.LENGTH_LONG).show()
+
+                Snackbar.make(logo.rootView, "Incorrect Username or Password", Snackbar.LENGTH_INDEFINITE)
+                    .show()
             }
 
         }

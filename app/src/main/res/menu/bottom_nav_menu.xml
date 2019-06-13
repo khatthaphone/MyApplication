@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/bottom_menu_main"
+          android:title="Main"
+          android:icon="@mipmap/icon_home"></item>
+
+    <item android:id="@+id/bottom_menu_map"
+          android:title="Map"
+          android:icon="@mipmap/icon_map"></item>
+
+    <item android:id="@+id/bottom_menu_account"
+          android:title="Account"
+          android:icon="@mipmap/icon_user"></item>
+</menu>

@@ -1,8 +1,9 @@
-package com.retech.myapplication
+package com.retech.myapplication.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.retech.myapplication.R
 import kotlinx.android.synthetic.main.activity_design.*
 
 class DesignActivity : AppCompatActivity() {

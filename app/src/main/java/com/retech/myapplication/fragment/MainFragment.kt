@@ -1,6 +1,7 @@
 package com.retech.myapplication.fragment
 
 import android.content.Context
+import android.net.Network
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -11,10 +12,10 @@ import android.widget.TextView
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
+import com.android.volley.toolbox.*
 
 import com.retech.myapplication.R
+import java.io.File
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,7 +40,7 @@ class MainFragment : Fragment() {
     private lateinit var textView: TextView
 
     val TAG: String = this::class.java.simpleName
-    private lateinit var queue: RequestQueue
+    private lateinit var requestQueue: RequestQueue
     private lateinit var stringRequest: StringRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,21 +65,31 @@ class MainFragment : Fragment() {
 
         textView = view.findViewById(R.id.text_main)
 
-//        Init RequestQueue
-        queue = Volley.newRequestQueue(activity)
+        requestData()
+
+    }
+
+    private fun requestData() {
+
+        val cache = DiskBasedCache(context?.cacheDir, 1024 * 1024)
+
+        val network = BasicNetwork(HurlStack())
+
+        requestQueue = RequestQueue(cache, network).apply {
+            start()
+        }
+
         val url = "https://currencyx-lao.firebaseio.com/rates.json"
 
-        stringRequest = StringRequest(Request.Method.GET, url,
-            Response.Listener<String> {
-                textView.text = it
-            }, Response.ErrorListener {
-                textView.text = "That didn't work!"
-            })
+        stringRequest = StringRequest(Request.Method.GET, url, Response.Listener<String> {
+            textView.text = it
+        }, Response.ErrorListener {
+            textView.text = "ERROR: %s".format(it.toString())
+        }).apply {
+            tag = TAG
+        }
 
-        stringRequest.tag = TAG
-
-        queue.add(stringRequest)
-
+        requestQueue.add(stringRequest)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -88,7 +99,7 @@ class MainFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        queue.cancelAll(TAG)
+        requestQueue.cancelAll(TAG)
     }
 
     override fun onAttach(context: Context) {
@@ -103,6 +114,7 @@ class MainFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
+        requestQueue.cancelAll(TAG)
     }
 
     /**
@@ -144,4 +156,9 @@ class MainFragment : Fragment() {
         @JvmStatic
         fun newInstance() = MainFragment()
     }
+
+    private fun getTempFile(context: Context, name: String): File? =
+        Uri.parse(name)?.lastPathSegment?.let { filename ->
+            File.createTempFile(filename, null, context.cacheDir)
+        }
 }

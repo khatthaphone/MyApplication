@@ -15,6 +15,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.*
 
 import com.retech.myapplication.R
+import com.retech.myapplication.singleton.MySingleton
 import java.io.File
 
 // TODO: Rename parameter arguments, choose names that match
@@ -71,13 +72,7 @@ class MainFragment : Fragment() {
 
     private fun requestData() {
 
-        val cache = DiskBasedCache(context?.cacheDir, 1024 * 1024)
-
-        val network = BasicNetwork(HurlStack())
-
-        requestQueue = RequestQueue(cache, network).apply {
-            start()
-        }
+        requestQueue = MySingleton.getInstance(activity!!.applicationContext).requestQueue
 
         val url = "https://currencyx-lao.firebaseio.com/rates.json"
 

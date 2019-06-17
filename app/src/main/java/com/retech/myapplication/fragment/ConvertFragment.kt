@@ -7,12 +7,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import com.android.volley.Request
-import com.android.volley.RequestQueue
-import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
 
 import com.retech.myapplication.R
 
@@ -24,23 +18,17 @@ private const val ARG_PARAM2 = "param2"
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [MainFragment.OnFragmentInteractionListener] interface
+ * [ConvertFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [MainFragment.newInstance] factory method to
+ * Use the [ConvertFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class MainFragment : Fragment() {
+class ConvertFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
-
-    private lateinit var textView: TextView
-
-    val TAG: String = this::class.java.simpleName
-    private lateinit var queue: RequestQueue
-    private lateinit var stringRequest: StringRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,45 +38,15 @@ class MainFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        textView = view.findViewById(R.id.text_main)
-
-//        Init RequestQueue
-        queue = Volley.newRequestQueue(activity)
-        val url = "https://currencyx-lao.firebaseio.com/rates.json"
-
-        stringRequest = StringRequest(Request.Method.GET, url,
-            Response.Listener<String> {
-                textView.text = it
-            }, Response.ErrorListener {
-                textView.text = "That didn't work!"
-            })
-
-        stringRequest.tag = TAG
-
-        queue.add(stringRequest)
-
+        return inflater.inflate(R.layout.fragment_convert, container, false)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
         listener?.onFragmentInteraction(uri)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        queue.cancelAll(TAG)
     }
 
     override fun onAttach(context: Context) {
@@ -122,26 +80,25 @@ class MainFragment : Fragment() {
     }
 
     companion object {
-
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MainFragment.
+         * @return A new instance of fragment ConvertFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MainFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                ConvertFragment().apply {
+                    arguments = Bundle().apply {
+                        putString(ARG_PARAM1, param1)
+                        putString(ARG_PARAM2, param2)
+                    }
                 }
-            }
 
         @JvmStatic
-        fun newInstance() = MainFragment()
+        fun newInstance() = ConvertFragment()
     }
 }

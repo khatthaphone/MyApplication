@@ -23,5 +23,4 @@
             app:menu="@menu/bottom_nav_menu"
             android:theme="@style/ThemeOverlay.MaterialComponents.Light"/>
 
-
 </android.support.design.widget.CoordinatorLayout>

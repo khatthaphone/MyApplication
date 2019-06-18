@@ -50,7 +50,6 @@ class Main2Activity : AppCompatActivity(),
 
         supportFragmentManager.beginTransaction()
             .add(R.id.fragment_container, MainFragment.newInstance())
-            .add(R.id.fragment_container2, AccountFragment.newInstance())
             .commit()
 
         initViews()

@@ -44,10 +44,6 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        childFragmentManager.beginTransaction()
-            .replace(R.id.child_fragment_container, AccountFragment.newInstance())
-            .commit()
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main, container, false)
     }

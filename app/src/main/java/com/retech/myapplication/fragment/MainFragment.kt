@@ -1,7 +1,6 @@
 package com.retech.myapplication.fragment
 
 import android.content.Context
-import android.net.Network
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -13,9 +12,11 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.*
+import com.bumptech.glide.load.engine.Resource
 
 import com.retech.myapplication.R
 import com.retech.myapplication.singleton.MySingleton
+import org.json.JSONObject
 import java.io.File
 
 // TODO: Rename parameter arguments, choose names that match
@@ -42,7 +43,7 @@ class MainFragment : Fragment() {
 
     val TAG: String = this::class.java.simpleName
     private lateinit var requestQueue: RequestQueue
-    private lateinit var stringRequest: StringRequest
+    private lateinit var jsonObjectRequest: JsonObjectRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,15 +77,13 @@ class MainFragment : Fragment() {
 
         val url = "https://currencyx-lao.firebaseio.com/rates.json"
 
-        stringRequest = StringRequest(Request.Method.GET, url, Response.Listener<String> {
-            textView.text = it
-        }, Response.ErrorListener {
-            textView.text = "ERROR: %s".format(it.toString())
-        }).apply {
-            tag = TAG
-        }
+        jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null, Response.Listener<JSONObject> { response ->
+            textView.text = "Response: %s".format(response.toString())
+        }, Response.ErrorListener {error ->
+            textView.text = "ERROR: %s".format(error.toString())
+        })
 
-        requestQueue.add(stringRequest)
+        requestQueue.add(jsonObjectRequest)
     }
 
     // TODO: Rename method, update argument and hook method into UI event

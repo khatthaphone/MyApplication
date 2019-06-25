@@ -39,8 +39,11 @@ class MainActivity : AppCompatActivity() {
         sharedPrefs = getSharedPreferences(MY_SHARED_PREFS, Context.MODE_PRIVATE)
         editor = sharedPrefs.edit()
 
-        initViews()
+        if (sharedPrefs.getBoolean("logged_in", false)) {
+            startActivity(Intent(this, Main2Activity::class.java))
+        }
 
+        initViews()
 
         onLogin()
 
@@ -77,12 +80,14 @@ class MainActivity : AppCompatActivity() {
             if (enterUsername == username && enterPassword == password) {
                 Toast.makeText(applicationContext, "Correct Username and Password", Toast.LENGTH_LONG).show()
 
+                editor.putBoolean("logged_in", true).commit()
+
                 val intent = Intent(this, Main2Activity::class.java)
                 intent.putExtra("username", enterUsername)
                 intent.putExtra("password", enterPassword)
 
                 startActivity(intent)
-                //                finish()
+                finish()
 
             } else {
 //                Toast.makeText(applicationContext, "Incorrect Username or Password", Toast.LENGTH_LONG).show()

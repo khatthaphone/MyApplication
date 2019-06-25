@@ -7,80 +7,82 @@
         android:layout_height="match_parent"
         tools:context=".activity.MainActivity">
 
-        <!--This is a main activity-->
-        <!--Don't change it-->
+    <!--This is a main activity-->
+    <!--Don't change it-->
 
-        <!--Ctrl + D = Duplicate-->
-        <!--Ctrl + / = toggle comment-->
-        <!--Alt + j = select multiple instance of word-->
-        <!--Shift + F6 = rename all occurrences-->
-        <!--Shift + Alt + arrow up/down = move line -->
+    <!--Ctrl + D = Duplicate-->
+    <!--Ctrl + / = toggle comment-->
+    <!--Alt + j = select multiple instance of word-->
+    <!--Shift + F6 = rename all occurrences-->
+    <!--Shift + Alt + arrow up/down = move line -->
+    <HorizontalScrollView android:layout_width="match_parent" android:layout_height="match_parent">
 
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                        android:id="@+id/logo"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="62dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="300dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/ic_launcher_round"/>
+            <ImageView
+                    android:id="@+id/logo"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="62dp"
+                    android:layout_width="1000dp"
+                    android:layout_height="600dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_launcher_round"/>
 
-                <EditText
-                        android:id="@+id/et_username"
-                        android:layout_width="280dp"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/logo"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginStart="16dp"
-                        android:hint="Username"
-                />
+            <EditText
+                    android:id="@+id/et_username"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/logo"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="16dp"
+                    android:hint="Username"
+            />
 
-                <EditText
-                        android:id="@+id/et_password"
-                        android:layout_width="280dp"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/et_username"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginStart="16dp"
-                        android:inputType="textPassword"
-                        android:hint="Password"
-                />
+            <EditText
+                    android:id="@+id/et_password"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/et_username"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="16dp"
+                    android:inputType="textPassword"
+                    android:hint="Password"
+            />
 
-                <Button
-                        android:id="@+id/btn_login"
-                        android:layout_width="200sp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_button_selector"
-                        android:textColor="#FFFFFF"
-                        android:layout_centerHorizontal="true"
-                        android:textStyle="bold"
-                        android:layout_marginTop="24dp"
-                        android:layout_below="@id/et_password"
-                        android:text="Login"/>
+            <Button
+                    android:id="@+id/btn_login"
+                    android:layout_width="200sp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_button_selector"
+                    android:textColor="#FFFFFF"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    android:layout_marginTop="24dp"
+                    android:layout_below="@id/et_password"
+                    android:text="Login"/>
 
-                <CheckBox
-                        android:id="@+id/cb_remember_username"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/btn_login"
-                        android:layout_marginTop="32dp"
-                        android:layout_alignLeft="@+id/et_password"/>
+            <CheckBox
+                    android:id="@+id/cb_remember_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btn_login"
+                    android:layout_marginTop="32dp"
+                    android:layout_alignLeft="@+id/et_password"/>
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/cb_remember_username"
-                        android:layout_alignBaseline="@+id/cb_remember_username"
-                        android:text="Remember Username"
-                />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/cb_remember_username"
+                    android:layout_alignBaseline="@+id/cb_remember_username"
+                    android:text="Remember Username"
+            />
 
         </RelativeLayout>
+    </HorizontalScrollView>
 
 
 </ScrollView>

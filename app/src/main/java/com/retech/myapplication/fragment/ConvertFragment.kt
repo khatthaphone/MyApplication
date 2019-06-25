@@ -7,8 +7,16 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.retech.myapplication.ApiService
 
 import com.retech.myapplication.R
+import com.retech.myapplication.model.Rate
+import kotlinx.android.synthetic.main.fragment_convert.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,10 +46,40 @@ class ConvertFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_convert, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        view.text_view.text = "loading"
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://currencyx-lao.firebaseio.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val service = retrofit.create(ApiService::class.java)
+        val callCurrencyRate = service.getCurrencyExchangeRates()
+
+        callCurrencyRate.enqueue(object : Callback<List<Rate>> {
+            override fun onFailure(call: Call<List<Rate>>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<List<Rate>>, response: Response<List<Rate>>) {
+                if (response.code() == 200) {
+                    view.text_view.text = response.body()?.get(0)?.toString()
+                }
+            }
+
+        })
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -91,12 +129,12 @@ class ConvertFragment : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-                ConvertFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
+            ConvertFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
                 }
+            }
 
         @JvmStatic
         fun newInstance() = ConvertFragment()

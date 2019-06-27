@@ -4,21 +4,21 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
+import android.widget.TextView
 import com.retech.myapplication.ApiService
 
 import com.retech.myapplication.R
 import com.retech.myapplication.model.Rate
-import kotlinx.android.synthetic.main.fragment_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.Exception
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,10 +76,38 @@ class MainFragment : Fragment() {
 
             override fun onResponse(call: Call<List<Rate>>, response: Response<List<Rate>>) {
                 if (response.isSuccessful) {
-                    text_view.text = response.body().toString()
+                    if (view is RecyclerView) {
+                        view.layoutManager = GridLayoutManager(context, 1)
+                        view.setHasFixedSize(true)
+                        view.adapter = MyAdapter(response.body())
+                    }
                 }
             }
         })
+
+    }
+
+    class MyAdapter(private val itemList: List<Rate>?) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
+        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            val textView = itemView.rootView.findViewById<TextView>(R.id.text_view)
+        }
+
+        override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
+            val view = LayoutInflater.from(p0.context).inflate(R.layout.list_item,p0, false)
+            return ViewHolder(view)
+
+        }
+
+        override fun getItemCount(): Int {
+            if (itemList != null) {
+                return itemList.size
+            }
+            return 0
+        }
+
+        override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+            viewHolder.textView.text = itemList?.get(position)?.currencyCode
+        }
 
     }
 

@@ -1,28 +1,25 @@
 package com.retech.myapplication.activity
 
-import android.accounts.Account
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.internal.BottomNavigationMenu
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import com.retech.myapplication.R
 import com.retech.myapplication.fragment.AccountFragment
+import com.retech.myapplication.fragment.ConvertFragment
 import com.retech.myapplication.fragment.MainFragment
-import com.retech.myapplication.fragment.PlusOneFragment
 import kotlinx.android.synthetic.main.activity_main2.*
 
 class Main2Activity : AppCompatActivity(),
         MainFragment.OnFragmentInteractionListener,
-        PlusOneFragment.OnFragmentInteractionListener,
+        ConvertFragment.OnFragmentInteractionListener,
         AccountFragment.OnFragmentInteractionListener,
         BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -45,7 +42,7 @@ class Main2Activity : AppCompatActivity(),
                 fragment = MainFragment.newInstance()
                 fragmentManager.setCustomAnimations(R.anim.slide_to_right, R.anim.slide_to_left)
             }
-            R.id.bottom_menu_map -> fragment = PlusOneFragment.newInstance()
+            R.id.bottom_menu_map -> fragment = ConvertFragment.newInstance("", "")
             R.id.bottom_menu_account -> {
                 fragment = AccountFragment.newInstance()
                 fragmentManager.setCustomAnimations(R.anim.slide_to_left, R.anim.slide_to_right)
